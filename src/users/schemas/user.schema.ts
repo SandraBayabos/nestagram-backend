@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type UserDocument = User & Document;
-
 /*
 @Schema() decorator marks a class as a schema definition. Maps User class to MongoDB collection
 of the same name 
@@ -10,7 +8,7 @@ of the same name
 */
 
 @Schema()
-export class User {
+export class User extends Document {
   @Prop()
   name: string
 

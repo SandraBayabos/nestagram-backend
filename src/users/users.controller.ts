@@ -67,4 +67,14 @@ export class UsersController {
         email: updatedUser.email
     }
   }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string, @Res() res): Promise<User> {
+    const deletedUser = await this.usersService.delete(id);
+    return res.status(HttpStatus.OK).json({
+      message: `User has been successfully deleted`,
+      user: deletedUser
+    })
+
+  }
 }

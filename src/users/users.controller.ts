@@ -17,7 +17,7 @@ export class UsersController {
     }))
   }
 
-  @Get(':username')
+  @Get('user/:username')
   async findByUsername(@Param('username') username: string): Promise<any> {
     const user = await this.usersService.findByUsername(username);
     if(!user) {
@@ -30,14 +30,14 @@ export class UsersController {
     }
   }
 
-  @Get(':id')
+  @Get('user/:id')
   async findOne(@Param('id') id: string): Promise<any> {
     const user = await this.usersService.findOne(id);
     if(!user) {
       throw new NotFoundException('No user with this id exists!')
     }
     return {
-      id: id,
+      id: user.id,
       username: user.username,
       email: user.email
     }
@@ -58,9 +58,13 @@ export class UsersController {
     }
   }
 
-  @Put(':id')
-  async update(@Param('id') @Body() createUserDto: CreateUserDto, id: string): Promise<User> {
-    const updatedUser = await this.usersService.update(id, createUserDto);
-    return updatedUser;
+  @Put('edit/:id')
+  async update(@Param('id') id: string, @Body() updateUserDto: CreateUserDto): Promise<any> {
+    const updatedUser = await this.usersService.update(id, updateUserDto);
+    return {
+        id: updatedUser.id,
+        username: updatedUser.username,
+        email: updatedUser.email
+    }
   }
 }

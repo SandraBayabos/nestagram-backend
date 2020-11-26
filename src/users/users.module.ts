@@ -12,6 +12,8 @@ forFeature() method configures the module & defines which models should be regis
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])
   ],
   controllers: [UsersController],
-  providers: [UsersService]
+  providers: [UsersService],
+  // UsersService needs to be exported so that it is visible outside this module
+  exports: [UsersService]
 })
 export class UsersModule {}

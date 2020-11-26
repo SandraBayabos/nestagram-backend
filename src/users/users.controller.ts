@@ -1,4 +1,4 @@
-import { Controller, Get, Res, HttpStatus, Param, Query, NotFoundException, Post, Put, Delete, Body, HttpException } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus, Param, NotFoundException, Post, Put, Delete, Body, HttpException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './interfaces/user.interface';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,7 +19,7 @@ export class UsersController {
 
   @Get('user/:username')
   async findByUsername(@Param('username') username: string): Promise<any> {
-    const user = await this.usersService.findByUsername(username);
+    const user = await this.usersService.findOne(username);
     if(!user) {
       throw new NotFoundException('There is no user with this username!')
     }
@@ -30,24 +30,24 @@ export class UsersController {
     }
   }
 
-  @Get('user/:id')
-  async findOne(@Param('id') id: string): Promise<any> {
-    const user = await this.usersService.findOne(id);
-    if(!user) {
-      throw new NotFoundException('No user with this id exists!')
-    }
-    return {
-      id: user.id,
-      username: user.username,
-      email: user.email
-    }
-  }
+  // @Get('user/:id')
+  // async findOne(@Param('id') id: string): Promise<any> {
+  //   const user = await this.usersService.findOne(id);
+  //   if(!user) {
+  //     throw new NotFoundException('No user with this id exists!')
+  //   }
+  //   return {
+  //     id: user.id,
+  //     username: user.username,
+  //     email: user.email
+  //   }
+  // }
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<any> {
     const newUser = await this.usersService.create(createUserDto);
     if(!newUser) {
-      throw new HttpException('Username or Email already exists. Pick another.', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Username or Email already exists. Pick another.', HttpStatus.NON_AUTHORITATIVE_INFORMATION)
     }
     return {
       user: {

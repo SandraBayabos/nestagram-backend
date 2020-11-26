@@ -14,14 +14,13 @@ export class UsersService {
     return users;
   }
 
-  async findOne(userId): Promise<User> {
-    const user = await this.userModel.findById(userId);
-    return user;
-  }
+  // async findOne(userId): Promise<User> {
+  //   const user = await this.userModel.findById(userId);
+  //   return user;
+  // }
 
-  async findByUsername(username: string): Promise<User> {
-    const user = await this.userModel.findOne({ username: username });
-    return user;
+  async findOne(username: string): Promise<User | undefined> {
+      return await this.userModel.findOne({ username: username });
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {

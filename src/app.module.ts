@@ -3,7 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
-import { UserController } from './user/user.controller';
+import { UsersController } from './users/users.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -11,9 +12,10 @@ import { UserController } from './user/user.controller';
       'mongodb://localhost/nestagram-backend',
        { useNewUrlParser: true }
     ),
-    UsersModule
+    UsersModule,
+    AuthModule
   ],
-  controllers: [AppController, UserController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}

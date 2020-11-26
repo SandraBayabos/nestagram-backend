@@ -53,7 +53,7 @@ export class UsersController {
       user: {
         id: newUser.id,
         username: newUser.username,
-        email: newUser.email
+        email: newUser.email,
       }
     }
   }

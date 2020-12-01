@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { UsersController } from './users/users.controller';
 import { AuthModule } from './auth/auth.module';
+import { ImagesModule } from './images/images.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { AuthModule } from './auth/auth.module';
        { useNewUrlParser: true }
     ),
     UsersModule,
-    AuthModule
+    AuthModule,
+    ImagesModule
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],

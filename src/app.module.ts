@@ -6,13 +6,16 @@ import { UsersModule } from './users/users.module';
 import { UsersController } from './users/users.controller';
 import { AuthModule } from './auth/auth.module';
 import { ImagesModule } from './images/images.module';
+import { ConfigModule } from 'nestjs-config';
+import * as path from 'path';
 
 @Module({
   imports: [
     MongooseModule.forRoot(
       'mongodb://localhost/nestagram-backend',
-       { useNewUrlParser: true }
+       { useNewUrlParser: true },
     ),
+    ConfigModule.load(path.resolve(__dirname, 'config', '**/!(*.d).{ts,js}')),
     UsersModule,
     AuthModule,
     ImagesModule
